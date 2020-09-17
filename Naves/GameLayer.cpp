@@ -58,6 +58,9 @@ void GameLayer::keysToControls(SDL_Event event) {
 		int code = event.key.keysym.sym;
 		// Pulsada
 		switch (code) {
+		case SDLK_ESCAPE:
+			game->loopActive = false;
+			break;
 		case SDLK_d: // derecha
 			controlMoveX = 1;
 			break;
@@ -104,6 +107,10 @@ void GameLayer::keysToControls(SDL_Event event) {
 			break;
 		}
 	}
+	if (event.type == SDL_QUIT) {
+		game->loopActive = false;
+	}
+
 }
 
 
