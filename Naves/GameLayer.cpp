@@ -8,16 +8,78 @@ GameLayer::GameLayer(Game* game)
 
 void GameLayer::init() {
 	player = new Player(50, 50, game);
+	background = new Background("res/fondo.png", WIDTH * 0.5, HEIGHT * 0.5, game);
 }
 
 void GameLayer::processControls() {
+	// obtener controles
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+		keysToControls(event);
+	}
+	//procesar controles
 }
+
+void GameLayer::keysToControls(SDL_Event event) {
+	if (event.type == SDL_KEYDOWN) {
+		int code = event.key.keysym.sym;
+		// Pulsada
+		switch (code) {
+		case SDLK_d: // derecha
+			controlMoveX = 1;
+			break;
+		case SDLK_a: // izquierda
+			controlMoveX = -1;
+			break;
+		case SDLK_w: // arriba
+			controlMoveY = -1;
+			break;
+		case SDLK_s: // abajo
+			controlMoveY = 1;
+			break;
+		case SDLK_SPACE: // dispara
+			controlShoot = true;
+			break;
+		}
+	}
+	if (event.type == SDL_KEYUP) {
+		int code = event.key.keysym.sym;
+		// Levantada
+		switch (code) {
+		case SDLK_d: // derecha
+			if (controlMoveX == 1) {
+				controlMoveX = 0;
+			}
+			break;
+		case SDLK_a: // izquierda
+			if (controlMoveX == -1) {
+				controlMoveX = 0;
+			}
+			break;
+		case SDLK_w: // arriba
+			if (controlMoveY == -1) {
+				controlMoveY = 0;
+			}
+			break;
+		case SDLK_s: // abajo
+			if (controlMoveY == 1) {
+				controlMoveY = 0;
+			}
+			break;
+		case SDLK_SPACE: // dispara
+			controlShoot = false;
+			break;
+		}
+	}
+}
+
 
 void GameLayer::update() {
 	cout << "update GameLayer" << endl;
 }
 
 void GameLayer::draw() {
+	background->draw();//Lo pintamos antes que el jugador, va por detras
 	player->draw();
 	SDL_RenderPresent(game->renderer); // Renderiza
 }
