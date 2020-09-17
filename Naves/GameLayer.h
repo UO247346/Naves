@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "Background.h"
 #include "Enemy.h"
-
+#include "Projectile.h"
 #include <list>
 
 class GameLayer : public Layer
@@ -27,6 +27,7 @@ public:
 	int controlMoveX = 0;
 
 	list<Enemy*> enemies;
+	list<Projectile*> projectiles;
 };
 
 

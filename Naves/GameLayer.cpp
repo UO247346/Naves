@@ -9,6 +9,7 @@ GameLayer::GameLayer(Game* game)
 void GameLayer::init() {
 	player = new Player(50, 50, game);
 	background = new Background("res/fondo.png", WIDTH * 0.5, HEIGHT * 0.5, game);
+	projectiles.clear(); // Vaciar por si reiniciamos el juego
 	enemies.clear(); // Vaciar por si reiniciamos el juego
 	enemies.push_back(new Enemy(300, 50, game));
 	enemies.push_back(new Enemy(300, 200, game));
@@ -24,7 +25,10 @@ void GameLayer::processControls() {
 	//procesar controles
 	// Disparar
 	if (controlShoot) {
-
+		Projectile* newProjectile = player->shoot();
+		if (newProjectile != NULL) {
+			projectiles.push_back(newProjectile);
+		}
 	}
 	// Eje X
 	if (controlMoveX > 0) {
@@ -105,15 +109,26 @@ void GameLayer::keysToControls(SDL_Event event) {
 
 void GameLayer::update() {
 	player->update();
+	//Actualizar enemigos
 	for (auto const& enemy : enemies) {
 		enemy->update();
 	}
+	//Actualizar disparos
+	for (auto const& projectile : projectiles) {
+		projectile->update();
+	}
+
 	cout << "update GameLayer" << endl;
 }
 
 void GameLayer::draw() {
 	background->draw();//Lo pintamos antes que el jugador, va por detras
 	player->draw();
+	//Disparos antes que enemigos
+	for (auto const& projectile : projectiles) {
+		projectile->draw();
+	}
+	//Enemigos antes que colisiones, por si les damos
 	for (auto const& enemy : enemies) {
 		enemy->draw();
 	}

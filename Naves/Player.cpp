@@ -5,6 +5,10 @@ Player::Player(float x, float y, Game* game)
 	: Actor("res/jugador.png", x, y, 50, 57, game) {
 
 }
+Projectile* Player::shoot()
+{
+	return new Projectile(x, y, game);
+}
 void Player::update() {
 	x = x + vx;
 	y = y + vy;
