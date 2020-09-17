@@ -3,6 +3,7 @@
 
 #include "Layer.h"
 #include "Player.h"
+#include "Background.h"
 class GameLayer : public Layer
 {
 public:
@@ -11,7 +12,9 @@ public:
 	void processControls() override;
 	void update() override;
 	void draw() override;
-	Player* player;
+	//Declaraciones de los objetos del juego
+	Player* player;//Jugador
+	Background* background;//Fondo
 };
 
 
