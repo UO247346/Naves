@@ -117,5 +117,13 @@ void GameLayer::draw() {
 	for (auto const& enemy : enemies) {
 		enemy->draw();
 	}
+	// Colisiones
+	for (auto const& enemy : enemies) {
+		if (player->isOverlap(enemy)) {
+			init();
+			return; // Cortar el for
+		}
+	}
+
 	SDL_RenderPresent(game->renderer); // Renderiza
 }
