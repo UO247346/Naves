@@ -10,4 +10,7 @@ void Enemy::update() {
 	
 	vx = (this->vx);
 	x = x - vx;
+	if (x < 0) {
+		x = 480;
+	}
 }

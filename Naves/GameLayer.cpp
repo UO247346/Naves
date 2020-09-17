@@ -135,7 +135,6 @@ void GameLayer::update() {
 	for (auto const& projectile : projectiles) {
 		projectile->update();
 	}
-
 	cout << "update GameLayer" << endl;
 }
 
