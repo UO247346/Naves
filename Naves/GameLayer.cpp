@@ -18,6 +18,31 @@ void GameLayer::processControls() {
 		keysToControls(event);
 	}
 	//procesar controles
+	// Disparar
+	if (controlShoot) {
+
+	}
+	// Eje X
+	if (controlMoveX > 0) {
+		player->moveX(1);
+	}
+	else if (controlMoveX < 0) {
+		player->moveX(-1);
+	}
+	else {
+		player->moveX(0);
+	}
+
+	// Eje Y
+	if (controlMoveY > 0) {
+		player->moveY(1);
+	}
+	else if (controlMoveY < 0) {
+		player->moveY(-1);
+	}
+	else {
+		player->moveY(0);
+	}
 }
 
 void GameLayer::keysToControls(SDL_Event event) {
@@ -75,6 +100,7 @@ void GameLayer::keysToControls(SDL_Event event) {
 
 
 void GameLayer::update() {
+	player->update();
 	cout << "update GameLayer" << endl;
 }
 
