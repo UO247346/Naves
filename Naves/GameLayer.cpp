@@ -110,11 +110,19 @@ void GameLayer::keysToControls(SDL_Event event) {
 	if (event.type == SDL_QUIT) {
 		game->loopActive = false;
 	}
-
 }
 
 
 void GameLayer::update() {
+	// Generar enemigos
+	newEnemyTime--;
+	if (newEnemyTime <= 0) {
+		int rX = (rand() % (600 - 500)) + 1 + 500;
+		int rY = (rand() % (300 - 60)) + 1 + 60;
+		enemies.push_back(new Enemy(rX, rY, game));
+		newEnemyTime = 110;
+	}
+	//Mover al jugador
 	player->update();
 	//Actualizar enemigos
 	for (auto const& enemy : enemies) {

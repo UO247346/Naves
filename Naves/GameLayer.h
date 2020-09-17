@@ -17,7 +17,7 @@ public:
 	void update() override;
 	void draw() override;
 	void keysToControls(SDL_Event event);
-
+	int newEnemyTime = 0;
 
 	//Declaraciones de los objetos del juego
 	Player* player;//Jugador
