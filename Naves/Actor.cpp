@@ -28,7 +28,7 @@ void Actor::draw() {
 	destination.w = width;
 	destination.h = height;
 	// Modificar para que la referencia sea el punto central
-
+	
 	SDL_RenderCopyEx(game->renderer,
 		texture, &source, &destination, 0, NULL, SDL_FLIP_NONE);
 }
