@@ -8,6 +8,7 @@
 #include "Projectile.h"
 #include <list>
 #include "Text.h"
+#include "Audio.h" 
 class GameLayer : public Layer
 {
 public:
@@ -17,6 +18,7 @@ public:
 	void update() override;
 	void draw() override;
 	void keysToControls(SDL_Event event);
+	Audio* audioBackground;
 	Text* textPoints;
 	int points;
 	int newEnemyTime = 0;

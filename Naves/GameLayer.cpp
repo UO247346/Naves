@@ -7,10 +7,14 @@ GameLayer::GameLayer(Game* game)
 }
 
 void GameLayer::init() {
+	//Audio
+	audioBackground = new Audio("res/musica_ambiente.mp3", true);
+	audioBackground->play();
+	//Puntos
 	points = 0;
 	textPoints = new Text("hola", WIDTH * 0.92, HEIGHT * 0.04, game);
 	textPoints->content = to_string(points);
-
+	//Jugador
 	player = new Player(50, 50, game);
 	background = new Background("res/fondo.png", WIDTH * 0.5, HEIGHT * 0.5, game);
 	backgroundPoints = new Actor("res/icono_puntos.png",
