@@ -193,6 +193,7 @@ void GameLayer::update() {
 	//Eliminar los proyectiles gastados
 	for (auto const& delProjectile : deleteProjectiles) {
 		projectiles.remove(delProjectile);
+		delete delProjectile;
 	}
 	deleteProjectiles.clear();
 	cout << "update GameLayer" << endl;

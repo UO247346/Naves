@@ -10,7 +10,7 @@ public:
 	void update();
 	void moveX(float axis);
 	void moveY(float axis);
-	int shootCadence = 30;
+	int shootCadence = 20;
 	int shootTime = 0;
 
 };
