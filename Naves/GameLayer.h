@@ -7,7 +7,7 @@
 #include "Enemy.h"
 #include "Projectile.h"
 #include <list>
-
+#include "Text.h"
 class GameLayer : public Layer
 {
 public:
@@ -17,6 +17,8 @@ public:
 	void update() override;
 	void draw() override;
 	void keysToControls(SDL_Event event);
+	Text* textPoints;
+	int points;
 	int newEnemyTime = 0;
 
 	//Declaraciones de los objetos del juego

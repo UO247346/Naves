@@ -7,6 +7,10 @@ GameLayer::GameLayer(Game* game)
 }
 
 void GameLayer::init() {
+	points = 0;
+	textPoints = new Text("hola", WIDTH * 0.92, HEIGHT * 0.04, game);
+	textPoints->content = to_string(points);
+
 	player = new Player(50, 50, game);
 	background = new Background("res/fondo.png", WIDTH * 0.5, HEIGHT * 0.5, game);
 	backgroundPoints = new Actor("res/icono_puntos.png",
@@ -135,30 +139,10 @@ void GameLayer::update() {
 	for (auto const& enemy : enemies) {
 		enemy->update();
 	}
+	
 	//Actualizar disparos
 	for (auto const& projectile : projectiles) {
 		projectile->update();
-	}
-	cout << "update GameLayer" << endl;
-}
-
-void GameLayer::draw() {
-	background->draw();//Lo pintamos antes que el jugador, va por detras
-	player->draw();
-	//Disparos antes que enemigos
-	for (auto const& projectile : projectiles) {
-		projectile->draw();
-	}
-	//Enemigos antes que colisiones, por si les damos
-	for (auto const& enemy : enemies) {
-		enemy->draw();
-	}
-	// Colisiones
-	for (auto const& enemy : enemies) {
-		if (player->isOverlap(enemy)) {
-			init();
-			return; // Cortar el for
-		}
 	}
 	// Colisiones , Enemy - Projectile
 
@@ -183,6 +167,8 @@ void GameLayer::draw() {
 				if (!eInList) {
 					deleteEnemies.push_back(enemy);
 				}
+				points++;
+				textPoints->content = to_string(points);
 			}
 		}
 	}
@@ -196,7 +182,29 @@ void GameLayer::draw() {
 		projectiles.remove(delProjectile);
 	}
 	deleteProjectiles.clear();
+	cout << "update GameLayer" << endl;
+}
 
+void GameLayer::draw() {
+	background->draw();//Lo pintamos antes que el jugador, va por detras
+	player->draw();
+	//Disparos antes que enemigos
+	for (auto const& projectile : projectiles) {
+		projectile->draw();
+	}
+	//Enemigos antes que colisiones, por si les damos
+	for (auto const& enemy : enemies) {
+		enemy->draw();
+	}
+	// Colisiones
+	for (auto const& enemy : enemies) {
+		if (player->isOverlap(enemy)) {
+			init();
+			return; // Cortar el for
+		}
+	}
+
+	textPoints->draw();
 	backgroundPoints->draw();
 	SDL_RenderPresent(game->renderer); // Renderiza
 }
