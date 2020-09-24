@@ -14,6 +14,9 @@ Game::Game() {
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
 	gameLayer = new GameLayer(this);
+	// fuentes
+	TTF_Init();
+	font = TTF_OpenFont("res/sans.ttf", 24);
 
 	loopActive = true; // bucle activo
 	loop();

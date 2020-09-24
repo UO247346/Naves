@@ -20,6 +20,7 @@ public:
 	int newEnemyTime = 0;
 
 	//Declaraciones de los objetos del juego
+	Actor* backgroundPoints;
 	Player* player;//Jugador
 	Background* background;//Fondo
 	bool controlShoot = false;
