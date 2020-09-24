@@ -7,6 +7,7 @@ class Actor
 public:
 	Actor(string filename, float x, float y, int width, int height, Game* game);
 	virtual void draw();
+	bool isInRender();
 	bool isOverlap(Actor* actor); //Para comprobar colisiones
 	SDL_Texture* texture;
 	int x;

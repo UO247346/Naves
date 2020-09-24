@@ -148,7 +148,20 @@ void GameLayer::update() {
 
 	list<Enemy*> deleteEnemies;
 	list<Projectile*> deleteProjectiles;
+	//Eliminar disparos que se salen
+	for (auto const& projectile : projectiles) {
+		if (projectile->isInRender() == false) {
 
+			bool pInList = std::find(deleteProjectiles.begin(),
+				deleteProjectiles.end(),
+				projectile) != deleteProjectiles.end();
+
+			if (!pInList) {
+				deleteProjectiles.push_back(projectile);
+			}
+		}
+	}
+	//Colisiones
 	for (auto const& enemy : enemies) {
 		for (auto const& projectile : projectiles) {
 			if (enemy->isOverlap(projectile)) {

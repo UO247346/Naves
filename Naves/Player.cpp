@@ -23,9 +23,9 @@ void Player::update() {
 	y = y + vy;
 }
 void Player::moveX(float axis) {
-	vx = axis * 3;
+	vx = axis * 6;
 }
 
 void Player::moveY(float axis) {
-	vy = axis * 3;
+	vy = axis * 6;
 }
