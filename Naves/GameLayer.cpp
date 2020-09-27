@@ -14,12 +14,20 @@ void GameLayer::init() {
 	points = 0;
 	textPoints = new Text("hola", WIDTH * 0.92, HEIGHT * 0.04, game);
 	textPoints->content = to_string(points);
+	//Vidas
+	vidas = 3;
+	textLives = new Vidas("hola", WIDTH * 0.15, HEIGHT * 0.04, game);
+	textLives->content = to_string(vidas);
 	//Jugador
 	player = new Player(50, 50, game);
+	//Fondo
 	background = new Background("res/fondo.png", WIDTH * 0.5, HEIGHT * 0.5,-1, game);//Usando el nuevo constructor
+	//Pubntos
 	backgroundPoints = new Actor("res/icono_puntos.png",
 		WIDTH * 0.85, HEIGHT * 0.05, 24, 24, game);
-
+	//Vidas
+	backgroundLives = new Actor("res/corazon.png",
+		WIDTH * 0.05, HEIGHT * 0.10, 45, 45, game);
 	projectiles.clear(); // Vaciar por si reiniciamos el juego
 	enemies.clear(); // Vaciar por si reiniciamos el juego
 	enemies.push_back(new Enemy(300, 50, game));
@@ -189,6 +197,15 @@ void GameLayer::update() {
 			}
 		}
 	}
+	for (auto const& enemy : enemies) {
+		if (player->isOverlap(enemy)) {
+			//Codigo de vidas
+			enemies.remove(enemy);
+			vidas--;
+			textLives->content = to_string(vidas);
+			return;
+		}
+	}
 	//Eliminar los enemigos muertos
 	for (auto const& delEnemy : deleteEnemies) {
 		enemies.remove(delEnemy);
@@ -215,14 +232,21 @@ void GameLayer::draw() {
 		enemy->draw();
 	}
 	// Colisiones
-	for (auto const& enemy : enemies) {
-		if (player->isOverlap(enemy)) {
-			init();
-			return; // Cortar el for
-		}
+	//for (auto const& enemy : enemies) {
+	//	if (player->isOverlap(enemy)) {
+			//Codigo de vidas
+			//vidas--;
+			//textLives->content = to_string(vidas);
+	if (vidas == 0) {
+		init();
 	}
+		//	return; // Cortar el for
+		//}
+	//}
 
 	textPoints->draw();
+	textLives->draw();
 	backgroundPoints->draw();
+	backgroundLives->draw();
 	SDL_RenderPresent(game->renderer); // Renderiza
 }

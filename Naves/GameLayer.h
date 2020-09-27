@@ -8,6 +8,7 @@
 #include "Projectile.h"
 #include <list>
 #include "Text.h"
+#include "Vidas.h"
 #include "Audio.h" 
 class GameLayer : public Layer
 {
@@ -20,11 +21,14 @@ public:
 	void keysToControls(SDL_Event event);
 	Audio* audioBackground;
 	Text* textPoints;
+	Vidas* textLives;
 	int points;
+	int vidas;
 	int newEnemyTime = 0;
 
 	//Declaraciones de los objetos del juego
 	Actor* backgroundPoints;
+	Actor* backgroundLives;
 	Player* player;//Jugador
 	Background* background;//Fondo
 	bool controlShoot = false;
