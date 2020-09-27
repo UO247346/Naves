@@ -29,12 +29,15 @@ public:
 	//Declaraciones de los objetos del juego
 	Actor* backgroundPoints;
 	Actor* backgroundLives;
-	Player* player;//Jugador
+	Player* player1;//Jugador1
+	Player* player2;//Jugador2
 	Background* background;//Fondo
-	bool controlShoot = false;
-	int controlMoveY = 0;
-	int controlMoveX = 0;
-
+	bool controlShoot1 = false;
+	bool controlShoot2 = false;
+	int controlMoveY1 = 0;
+	int controlMoveX1 = 0;
+	int controlMoveY2 = 0;
+	int controlMoveX2 = 0;
 	list<Enemy*> enemies;
 	list<Projectile*> projectiles;
 };
