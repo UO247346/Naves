@@ -32,6 +32,7 @@ void GameLayer::init() {
 		WIDTH * 0.05, HEIGHT * 0.10, 45, 45, game);
 	projectiles.clear(); // Vaciar por si reiniciamos el juego
 	enemies.clear(); // Vaciar por si reiniciamos el juego
+	monedas.clear();// Vaciar por si reiniciamos el juego
 	enemies.push_back(new Enemy(300, 50, game));
 	enemies.push_back(new Enemy(300, 200, game));
 
@@ -210,13 +211,20 @@ void GameLayer::keysToControls(SDL_Event event) {
 
 void GameLayer::update() {
 	background->update();//Movemos el fondo
-	// Generar enemigos
+	// Generar enemigos y monedas
 	newEnemyTime--;
 	if (newEnemyTime <= 0) {
 		int rX = (rand() % (600 - 500)) + 1 + 500;
 		int rY = (rand() % (300 - 60)) + 1 + 60;
 		enemies.push_back(new Enemy(rX, rY, game));
 		newEnemyTime = 110;
+	}
+	newMonedaTime--;
+	if (newMonedaTime <= 0) {
+		int rX = (rand() % (600 - 500)) + 1 + 500;
+		int rY = (rand() % (300 - 60)) + 1 + 60;
+		monedas.push_back(new Moneda(rX, rY, game));
+		newMonedaTime = 110;
 	}
 	//Mover al jugador 1
 	player1->update();
@@ -226,15 +234,18 @@ void GameLayer::update() {
 	for (auto const& enemy : enemies) {
 		enemy->update();
 	}
-	
+	//Actualizar monedas
+	for (auto const& Moneda : monedas) {
+		Moneda->update();
+	}
 	//Actualizar disparos
 	for (auto const& projectile : projectiles) {
 		projectile->update();
 	}
-	// Colisiones , Enemy - Projectile
-
+	// Colisiones , Enemy - Projectile - Monedas
 	list<Enemy*> deleteEnemies;
 	list<Projectile*> deleteProjectiles;
+	list<Moneda*> deleteMonedas;
 	//Eliminar disparos que se salen
 	for (auto const& projectile : projectiles) {
 		if (projectile->isInRender() == false) {
@@ -272,11 +283,22 @@ void GameLayer::update() {
 			}
 		}
 	}
+	//Choque con enemigo
 	for (auto const& enemy : enemies) {
 		if (player1->isOverlap(enemy)|| player2->isOverlap(enemy)) {
 			//Codigo de vidas
 			enemies.remove(enemy);
 			vidas--;
+			textLives->content = to_string(vidas);
+			return;
+		}
+	}
+	//Choque con monedas
+	for (auto const& Moneda : monedas) {
+		if (player1->isOverlap(Moneda) || player2->isOverlap(Moneda)) {
+			//Codigo de vidas
+			monedas.remove(Moneda);
+			vidas++;
 			textLives->content = to_string(vidas);
 			return;
 		}
@@ -306,6 +328,10 @@ void GameLayer::draw() {
 	//Enemigos antes que colisiones, por si les damos
 	for (auto const& enemy : enemies) {
 		enemy->draw();
+	}
+	//Monedas
+	for (auto const& moneda : monedas) {
+		moneda->draw();
 	}
 	// Colisiones
 	//for (auto const& enemy : enemies) {

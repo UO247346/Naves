@@ -10,6 +10,7 @@
 #include "Text.h"
 #include "Vidas.h"
 #include "Audio.h" 
+#include "Moneda.h"
 class GameLayer : public Layer
 {
 public:
@@ -25,6 +26,7 @@ public:
 	int points;
 	int vidas;
 	int newEnemyTime = 0;
+	int newMonedaTime = 0;
 
 	//Declaraciones de los objetos del juego
 	Actor* backgroundPoints;
@@ -40,6 +42,7 @@ public:
 	int controlMoveX2 = 0;
 	list<Enemy*> enemies;
 	list<Projectile*> projectiles;
+	list <Moneda*> monedas;
 };
 
 
