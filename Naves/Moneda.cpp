@@ -6,5 +6,5 @@ Moneda::Moneda(float x, float y, Game* game) :
 }
 
 void Moneda::update() {
-	x = x + vx;
+	x = x - vx;
 }

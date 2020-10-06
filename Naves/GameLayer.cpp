@@ -224,7 +224,7 @@ void GameLayer::update() {
 		int rX = (rand() % (600 - 500)) + 1 + 500;
 		int rY = (rand() % (300 - 60)) + 1 + 60;
 		monedas.push_back(new Moneda(rX, rY, game));
-		newMonedaTime = 110;
+		newMonedaTime = 250;
 	}
 	//Mover al jugador 1
 	player1->update();
@@ -235,8 +235,8 @@ void GameLayer::update() {
 		enemy->update();
 	}
 	//Actualizar monedas
-	for (auto const& Moneda : monedas) {
-		Moneda->update();
+	for (auto const& moneda : monedas) {
+		moneda->update();
 	}
 	//Actualizar disparos
 	for (auto const& projectile : projectiles) {
