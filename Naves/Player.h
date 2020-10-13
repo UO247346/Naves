@@ -6,7 +6,7 @@
 class Player : public Actor
 {
 public:
-	Player(float x, float y, Game* game);
+	Player(float x, float y, Game* game, string recurso);
 	Projectile* shoot();
 	void update();
 	void moveX(float axis);

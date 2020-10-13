@@ -19,9 +19,9 @@ void GameLayer::init() {
 	textLives = new Vidas("hola", WIDTH * 0.15, HEIGHT * 0.04, game);
 	textLives->content = to_string(vidas);
 	//Jugador 1
-	player1 = new Player(50, 50, game);
+	player1 = new Player(50, 50, game, "res/jugador_nave.png");
 	//Jugador 2
-	player2 = new Player(50, 50, game);
+	player2 = new Player(50, 50, game, "res/jugador_nave.png");
 	//Fondo
 	background = new Background("res/fondo.png", WIDTH * 0.5, HEIGHT * 0.5,-1, game);//Usando el nuevo constructor
 	//Pubntos
@@ -118,6 +118,14 @@ void GameLayer::keysToControls(SDL_Event event) {
 			break;
 		case SDLK_1:
 			game->scale();
+			break;
+		case SDLK_3:
+			player1 = new Player(50, 50, game, "res/Space Invaders/nave.png");
+			player2 = new Player(50, 50, game, "res/Space Invaders/nave.png");
+			break;
+		case SDLK_4:
+			player1 = new Player(50, 50, game, "res/jugador_nave.png");
+			player2 = new Player(50, 50, game, "res/jugador_nave.png");
 			break;
 		case SDLK_d: // derecha
 			controlMoveX1 = 1;
