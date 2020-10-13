@@ -33,6 +33,7 @@ void GameLayer::init() {
 	projectiles.clear(); // Vaciar por si reiniciamos el juego
 	enemies.clear(); // Vaciar por si reiniciamos el juego
 	monedas.clear();// Vaciar por si reiniciamos el juego
+	bombas.clear();
 	enemies.push_back(new Enemy(300, 50, game));
 	enemies.push_back(new Enemy(300, 200, game));
 
@@ -234,6 +235,13 @@ void GameLayer::update() {
 		monedas.push_back(new Moneda(rX, rY, game));
 		newMonedaTime = 250;
 	}
+	newBombaTime--;
+	if (newBombaTime <= 0) {
+		int rX = (rand() % (600 - 500)) + 1 + 500;
+		int rY = (rand() % (300 - 60)) + 1 + 60;
+		bombas.push_back(new Bomba(rX, rY, game));
+		newBombaTime = 400;
+	}
 	//Mover al jugador 1
 	player1->update();
 	//Mover al jugador 2
@@ -245,6 +253,10 @@ void GameLayer::update() {
 	//Actualizar monedas
 	for (auto const& moneda : monedas) {
 		moneda->update();
+	}
+	//Actualizar bombas
+	for (auto const& bomba : bombas) {
+		bomba->update();
 	}
 	//Actualizar disparos
 	for (auto const& projectile : projectiles) {
@@ -311,6 +323,18 @@ void GameLayer::update() {
 			return;
 		}
 	}
+	//Choque con bomba
+	for (auto const& Bomba : bombas) {
+		if (player1->isOverlap(Bomba) || player2->isOverlap(Bomba)) {
+			//Codigo de vidas
+			bombas.remove(Bomba);
+			int enemigos = enemies.size();
+			enemies.clear();
+			points = points + enemigos;
+			textPoints->content = to_string(points);
+			return;
+		}
+	}
 	//Eliminar los enemigos muertos
 	for (auto const& delEnemy : deleteEnemies) {
 		enemies.remove(delEnemy);
@@ -340,6 +364,10 @@ void GameLayer::draw() {
 	//Monedas
 	for (auto const& moneda : monedas) {
 		moneda->draw();
+	}
+	//Bombas
+	for (auto const& bomba : bombas) {
+		bomba->draw();
 	}
 	// Colisiones
 	//for (auto const& enemy : enemies) {
